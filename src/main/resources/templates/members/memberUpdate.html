@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<script
+        src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <title>memberUpdate</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-start">
+      <form style="margin: auto" th:object="${member}">
+
+        <h3>아이디</h3>
+        <div class="input-group input-group-static mb-4">
+          <label style="font-weight: bold">아이디</label>
+          <input type="hidden" th:id="user_id" th:value="${memberId}"/>
+          <td th:text="${memberId}"></td>
+
+        </div>
+        <h3>닉네임 변경</h3>
+        <div class="input-group input-group-static mb-4">
+          <label style="font-weight: bold">기존 닉네임</label>
+          <td th:text="${memberName}"></td>
+
+        </div>
+        <div class="input-group input-group-static mb-4">
+          <label style="font-weight: bold">변경할 닉네임 입력</label>
+          <input type="text" th:id="newNickname" th:name="newNickname"
+                 placeholder="변경할 닉네임을 입력하세요." class="form-control" >
+        </div>
+        <h3>비밀번호 변경</h3>
+        <div class="input-group input-group-static mb-4">
+          <label style="font-weight: bold" th:for="password">변경할 비밀번호 입력</label>
+          <input type="password" th:id="user_pw" th:name="user_pw"
+                 placeholder="변경할 비밀번호를 입력하세요." class="form-control" >
+        </div>
+      </form>
+      <button id="memberUpdate" class="btn bg-gradient-primary" value="회원 정보 수정"
+              th:onclick="memberUpdate()">회원 정보 수정</button>
+
+    </div>
+  </div>
+  <script>
+    function memberUpdate(){
+        const data = {
+            user_id: $('#user_id').val(),
+            name: $('#newNickname').val(),
+            user_pw: $('#user_pw').val()
+        };
+
+        // 공백 및 빈 문자열 체크
+        if(!data.name || data.name.trim() === "" || !data.user_pw || data.user_pw.trim() === ""){
+            alert("공백 또는 입력하지 않은 부분이 있습니다.");
+            return false;
+        }
+        // 유효성 검사
+        else if(!/^[가-힣a-zA-Z0-9]{2,10}$/.test(data.name)){
+            alert("닉네임은 특수문자를 포함하지 않은 2~10자리여야 합니다.");
+            $('#newNickname').focus();
+            return false;
+        }
+        else if(!/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}/.test(data.user_pw)){
+            alert("비밀번호는 8~16자리수여야 합니다. 영문 대소문자, 숫자, 특수문자를 1개 이상 포함해야 합니다.");
+            $('#password').focus();
+            return false;
+        }
+
+        const confirmCheck = confirm("수정하시겠습니까?");
+
+        if(confirmCheck == true){
+            $.ajax({
+                type: 'PUT',
+                url: '/member',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function(result){
+                if(result){
+                    alert("회원 수정이 완료되었습니다.");
+                    window.location.href="/";
+                } else{
+                    alert("이미 사용 중인 닉네임입니다. 다시 입력해주세요.");
+                    $('#newNickname').focus();
+                }
+            }).fail(function(error){
+                alert(JSON.stringify(error));
+            });
+        }
+    }
+</script>
+</body>
+</html>

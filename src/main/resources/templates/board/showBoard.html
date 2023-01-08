@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <title>showBoard</title>
+</head>
+<body>
+<div class="container">
+    <h1><a href="/"> Toy Web Blog</a></h1>
+    <div class="form-group">
+            <a href="/board/new">게시글 작성</a>
+            <table>
+                <thead> <tr>
+                    <th>#</th>
+                    <th>제목 | </th>
+                    <th>글 내용</th>
+                    <th>작성자</th>
+                    <th>작성 시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board : ${boards}">
+                    <ul>
+                        <td th:text="${board.board_id}"></td>
+                        <td>
+                            <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
+                        </td>
+                        <td th:text="${board.contents}"></td>
+                        <td th:text="${board.writer}"></td>
+                        <td th:text="${board.register_date}"></td>
+                    </ul>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</div> <!-- /container -->
+</body>
+</html>

@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+body{
+background-color : #CFD4C6;
+}
+
+a{
+text-decoration-line : none;
+}
+
+div.main_dock{
+text-align: right;
+}

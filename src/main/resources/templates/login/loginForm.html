@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+  <title>loginForm</title>
+</head>
+<body>
+<div class="container">
+  <h1><a href="/"> Toy Web Blog</a></h1>
+  <form action="/login" method="post">
+    <div class="form-group">
+      아이디 : <input type="text" id="user_id" name="user_id" placeholder="ID"><br>
+      비밀번호 : <input type="password" id="user_pw" name="user_pw" placeholder="PW"><br>
+      <input type="submit" value="로그인">
+    </div>
+  </form>
+</div> <!-- /container -->
+</body>
+</html>

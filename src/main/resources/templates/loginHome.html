@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+  <title>loginHome</title>
+</head>
+<body>
+<div class="container">
+  <div>
+    <h1><a href="/"> Toy Web Blog</a></h1>
+    <div class="main_dock">
+      <p>
+        <td th:text = "${loginMemberName}">
+      <th>님 반갑습니다.</th>
+      </td>
+      <form action="/logout" method="post">
+        <button type="submit">로그아웃</button>
+        <a href="/members/update">회원정보 수정</a>
+        <a href="/members">회원 목록</a>
+      </form>
+      </p>
+    </div>
+    <p>
+      <a href="/board">게시판</a>
+    </p>
+  </div>
+</div> <!-- /container -->
+</body>
+</html>
