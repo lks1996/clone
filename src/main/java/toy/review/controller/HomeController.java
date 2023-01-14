@@ -6,8 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import toy.review.domain.Member;
+import toy.review.domain.WeatherDTO;
 import toy.review.service.MemberService;
-import toy.review.service.weatherModule;
+import toy.review.service.WeatherProcessFunc;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -17,14 +18,19 @@ import java.util.Optional;
 public class HomeController {
 
     private final MemberService memberService;
+    private final WeatherProcessFunc weatherProcessFunc;
 
-    public HomeController(MemberService memberService) {
+    public HomeController(MemberService memberService, WeatherProcessFunc weatherProcessFunc) {
         this.memberService = memberService;
+        this.weatherProcessFunc = weatherProcessFunc;
     }
 
     @GetMapping("/")
     public String home(@CookieValue(name = "memberId", required = false) String memberId,
-                       Model model) {
+                       Model model) throws IOException {
+
+        weatherProcessFunc.nowWeatherProcessedData();
+
 
         if (memberId == null) {
             return "home";

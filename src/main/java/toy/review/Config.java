@@ -1,17 +1,13 @@
 package toy.review;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import toy.review.repository.BoardRepository;
-import toy.review.repository.JdbcBoardRepository;
-import toy.review.repository.JdbcMemberRepository;
-import toy.review.repository.MemberRepository;
+import toy.review.repository.*;
 import toy.review.service.BoardService;
 import toy.review.service.LoginService;
 import toy.review.service.MemberService;
+import toy.review.service.WeatherProcessFunc;
 
-import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
@@ -42,6 +38,11 @@ public class Config {
     public BoardService boardService(){
         return new BoardService(boardRepository());
     }
+
+    @Bean
+    public WeatherProcessFunc weatherProcessFunc() {
+        return new WeatherProcessFunc(new OpenApiGetWeatherData());
+    }
     @Bean
     public MemberRepository memberRepository() {
           return new JdbcMemberRepository(dataSource);
@@ -51,5 +52,10 @@ public class Config {
     @Bean
     public BoardRepository boardRepository() {
         return new JdbcBoardRepository(dataSource);
+    }
+
+    @Bean
+    public GetWeatherData getWeatherData() {
+        return new OpenApiGetWeatherData();
     }
 }
