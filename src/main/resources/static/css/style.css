@@ -11,3 +11,7 @@ text-decoration-line : none;
 div.main_dock{
 text-align: right;
 }
+
+div.side_dock{
+text-align: right;
+}

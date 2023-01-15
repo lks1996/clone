@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import toy.review.domain.Member;
-import toy.review.domain.WeatherDTO;
 import toy.review.service.MemberService;
 import toy.review.service.WeatherProcessFunc;
 
@@ -29,8 +28,11 @@ public class HomeController {
     public String home(@CookieValue(name = "memberId", required = false) String memberId,
                        Model model) throws IOException {
 
-        weatherProcessFunc.nowWeatherProcessedData();
+        String nowWeather = weatherProcessFunc.nowWeatherData();
 
+        log.info(nowWeather);
+
+        model.addAttribute("nowWeather", nowWeather);
 
         if (memberId == null) {
             return "home";
