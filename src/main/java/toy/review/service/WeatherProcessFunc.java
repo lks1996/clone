@@ -21,16 +21,16 @@ public class WeatherProcessFunc {
         WeatherDTO nowWeatherDTO = getWeatherData.weatherFrcst();
         String nowWeather = "";
 
-        log.info(String.valueOf(nowWeatherDTO));
-        System.out.println("nowWeatherDTO.getSky() : " + nowWeatherDTO.getSky());
-        System.out.println("nowWeatherDTO.getTemp() : " + nowWeatherDTO.getTemp());
-        System.out.println("nowWeatherDTO.getPty() : " + nowWeatherDTO.getPty());
-        System.out.println("nowWeatherDTO.getRn1() : " + nowWeatherDTO.getRn1());
-        System.out.println("nowWeatherDTO.getLgt() : " + nowWeatherDTO.getLgt());
-        System.out.println("nowWeatherDTO.getReh() : " + nowWeatherDTO.getReh());
-        System.out.println("nowWeatherDTO.getVec() : " + nowWeatherDTO.getVec());
-        System.out.println("nowWeatherDTO.getWsd() : " + nowWeatherDTO.getWsd());
-
+        /*
+        nowWeatherDTO.getSky() : 3
+        nowWeatherDTO.getTemp() : -2
+        nowWeatherDTO.getPty() : 0
+        nowWeatherDTO.getRn1() : 강수없음
+        nowWeatherDTO.getLgt() : 0
+        nowWeatherDTO.getReh() : 85
+        nowWeatherDTO.getVec() : 302
+        nowWeatherDTO.getWsd() : 1
+        */
 
         if (nowWeatherDTO.getSky() == 1) {
             nowWeather += "오늘 하늘은 맑음!";

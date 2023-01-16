@@ -9,15 +9,20 @@
 <div class="container">
     <h1><a href="/"> Toy Web Blog</a></h1>
     <div class="form-group">
-            <a href="/board/new">게시글 작성</a>
+        <a href="/board/new">게시글 작성</a>
+        <form action="/board/search" method="GET" class="form-boardSearch" role="search">
+            <input type="text" name="keyword" id="search" placeholder="검색">
+            <button type="submit">검색</button>
+        </form>
             <table>
-                <thead> <tr>
-                    <th>#</th>
-                    <th>제목 | </th>
-                    <th>글 내용</th>
-                    <th>작성자</th>
-                    <th>작성 시간</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>제목 | </th>
+                        <th>글 내용</th>
+                        <th>작성자</th>
+                        <th>작성 시간</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <tr th:each="board : ${boards}">

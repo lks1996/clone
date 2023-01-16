@@ -86,7 +86,7 @@ public class BoardController {
 
     @GetMapping("/board/view/{bno}")
     public String viewBoard(@PathVariable Long bno, Model model) {
-        Optional<Board> boardResult = boardService.findOneBoard(bno);
+        Optional<Board> boardResult = boardService.findOneBoardById(bno);
 
         System.out.println("boardResult = " + boardResult);
         System.out.println("boardResult.getBoard_id = " + boardResult.get().getBoard_id());
@@ -105,5 +105,13 @@ public class BoardController {
         model.addAttribute("boardResult_register_date", boardResult_register_date);
 
         return "board/view";
+    }
+
+    @GetMapping("/board/search")
+    public String searchBoard(String keyword, Model model) {
+        List<Board> boards = boardService.findBoardByTitle(keyword);
+
+        model.addAttribute("boards", boards);
+        return "board/searchBoard";
     }
 }

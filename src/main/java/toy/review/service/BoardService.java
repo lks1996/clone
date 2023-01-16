@@ -16,6 +16,7 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
+    /* 게시글 등록 */
     public String registration(Board board) {
         boardRepository.save(board);
         return board.getTitle();
@@ -28,12 +29,20 @@ public class BoardService {
 //
 //    }
 
-    //전체 게시글 조회
+    /* 전체 게시글 조회 */
     public List<Board> findAllBoards() {
         return boardRepository.findAll();
     }
 
-    public Optional<Board> findOneBoard(Long boardId) {
+    /* 특정 게시글 검색(아이디로) */
+    public Optional<Board> findOneBoardById(Long boardId) {
         return boardRepository.findByBoardId(boardId);
+    }
+
+    /* 특정 게시글 검색(제목으로) */
+    public List<Board> findBoardByTitle(String keyword) {
+        List qq = boardRepository.findByTitle(keyword);
+        System.out.println("boardRepository.findByTitle(keyword) :: " + qq);
+        return boardRepository.findByTitle(keyword);
     }
 }
