@@ -35,7 +35,7 @@ public class BoardService {
     }
 
     /* 특정 게시글 검색(아이디로) */
-    public Optional<Board> findOneBoardById(Long boardId) {
+    public Board findOneBoardById(Long boardId) {
         return boardRepository.findByBoardId(boardId);
     }
 

@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -86,23 +87,11 @@ public class BoardController {
 
     @GetMapping("/board/view/{bno}")
     public String viewBoard(@PathVariable Long bno, Model model) {
-        Optional<Board> boardResult = boardService.findOneBoardById(bno);
+        Board boardResult = boardService.findOneBoardById(bno);
+        model.addAttribute("oneBoard", boardResult);
 
-        System.out.println("boardResult = " + boardResult);
-        System.out.println("boardResult.getBoard_id = " + boardResult.get().getBoard_id());
-
-        Long boardResult_board_id = boardResult.get().getBoard_id();
-        String boardResult_title = boardResult.get().getTitle();
-        String boardResult_contents = boardResult.get().getContents();
-        String boardResult_writer = boardResult.get().getWriter();
-        String boardResult_register_date = boardResult.get().getRegister_date();
-
-
-        model.addAttribute("boardResult_board_id", boardResult_board_id);
-        model.addAttribute("boardResult_title", boardResult_title);
-        model.addAttribute("boardResult_contents", boardResult_contents);
-        model.addAttribute("boardResult_writer", boardResult_writer);
-        model.addAttribute("boardResult_register_date", boardResult_register_date);
+        List<Board> boards = boardService.findAllBoards();
+        model.addAttribute("boards", boards);
 
         return "board/view";
     }

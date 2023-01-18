@@ -6,27 +6,85 @@
     <title>view</title>
 </head>
 <body>
-<div class="container">
+<div class="view_container">
     <h1><a href="/"> Toy Web Blog</a></h1>
-    <div class="form-group">
+    <div class="div_view_new_board">
         <a href="/board/new">게시글 작성</a>
+    </div>
+
+
+    <div>
+        <tr th:each="oneBoard : ${oneBoard}">
+            <input type="hidden" th:id="board_id" th:value="${oneBoard.board_id}"/>
+            <h3><td th:text="${oneBoard.title}"></td></h3>
+            <div class="div_view_writerAnddate">
+        <span class="span_view_writer">
+            <th class="th_view_writer">작성자: </th>
+            <td th:text="${oneBoard.writer}"></td>
+        </span>
+                <span class="span_view_register_date">
+            <th class="th_view_register_date">작성 시간: </th>
+            <td th:text="${oneBoard.register_date}"></td>
+        </span>
+            </div>
+            <div class="div_view_contents">
+                <td th:text="${oneBoard.contents}"></td>
+            </div>
+        </tr>
+    </div>
+
+
+<!--    <div>-->
+<!--        <input type="hidden" th:id="board_id" th:value="${boardResult_board_id}"/>-->
+<!--        <h3><td th:text="${boardResult_title}"></td></h3>-->
+<!--        <div class="div_view_writerAnddate">-->
+<!--        <span class="span_view_writer">-->
+<!--            <th class="th_view_writer">작성자: </th>-->
+<!--            <td th:text="${boardResult_writer}"></td>-->
+<!--        </span>-->
+<!--            <span class="span_view_register_date">-->
+<!--            <th class="th_view_register_date">작성 시간: </th>-->
+<!--            <td th:text="${boardResult_register_date}"></td>-->
+<!--        </span>-->
+<!--        </div>-->
+<!--        <div class="div_view_contents">-->
+<!--            <td th:text="${boardResult_contents}"></td>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+    <div class="div_view_comments">
+        <td th:text="Comments"></td>
+        <input type="text"/>
+        <tr th:each="comment : ${comments}">
+            <ul>
+                <td th:text="${comment.user_id}"></td>
+                <td th:text="${comment.register_date}"></td>
+                <td th:text="${comment.contents}"></td>
+            </ul>
+        </tr>
+    </div>
+
+
+    <div class="dif_view_boardsList">
         <table>
-            <thead> <tr>
+            <thead>
+            <tr>
                 <th>#</th>
                 <th>제목 | </th>
-                <th>글 내용</th>
                 <th>작성자</th>
                 <th>작성 시간</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr th:each="board : ${boards}">
                 <ul>
-                    <td th:text="${boardResult_board_id}"></td>
-                    <td th:text="${boardResult_title}"></td>
-                    <td th:text="${boardResult_contents}"></td>
-                    <td th:text="${boardResult_writer}"></td>
-                    <td th:text="${boardResult_register_date}"></td>
+                    <td th:text="${board.board_id}"></td>
+                    <td>
+                        <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
+                    </td>
+                    <td th:text="${board.writer}"></td>
+                    <td th:text="${board.register_date}"></td>
                 </ul>
             </tr>
             </tbody>

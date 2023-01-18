@@ -53,7 +53,7 @@ public class JdbcBoardRepository implements BoardRepository{
     }
 
     @Override
-    public Optional<Board> findByBoardId(Long board_id) {
+    public Board findByBoardId(Long board_id) {
         String sql = "select * from board where board_id=?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -71,9 +71,9 @@ public class JdbcBoardRepository implements BoardRepository{
                 board.setContents(rs.getString("contents"));
                 board.setRegister_date(rs.getString("register_date"));
 
-                return Optional.of(board);
+                return board;
             } else {
-                return Optional.empty();
+                return null;
             }
         } catch (Exception e) {
             throw new IllegalStateException(e);

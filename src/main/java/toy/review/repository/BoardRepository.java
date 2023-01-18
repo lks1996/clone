@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface BoardRepository {
     Board save(Board board);
 
-    Optional<Board> findByBoardId(Long board_id);
+    Board findByBoardId(Long board_id);
 
     List<Board> findAll();
 

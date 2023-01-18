@@ -102,22 +102,6 @@ public class MemberController {
 
             return true;
         }
-//        else{
-//            log.info("사용 가능한 닉네임");
-//
-//            // 회원 정보 수정
-//            memberService.userInfoUpdate(dto);
-//
-//            /** ========== 변경된 세션 등록 ========== **/
-//            /* 1. 새로운 UsernamePasswordAuthenticationToken 생성하여 AuthenticationManager 을 이용해 등록 */
-//            Authentication authentication = authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword())
-//            );
-//
-//            /* 2. SecurityContextHolder 안에 있는 Context를 호출해 변경된 Authentication으로 설정 */
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            return true;
-//        }
     }
 
 
