@@ -20,7 +20,7 @@ public class JdbcBoardRepository implements BoardRepository{
 
     @Override
     public Board save(Board board) {
-        String sql = "insert into board(title, writer, contents, register_date) values(?, ?,?, ?)";
+        String sql = "insert into board(title, writer, contents, register_date) values(?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -88,8 +88,6 @@ public class JdbcBoardRepository implements BoardRepository{
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-
-        System.out.println("keyword가 제대로 왔나요? :: " + keyword);
 
         try {
             conn = getConnection();
