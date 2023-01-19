@@ -2,6 +2,7 @@ package toy.review.repository;
 
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import toy.review.domain.Board;
+import toy.review.domain.Comments;
 import toy.review.domain.Member;
 
 import javax.sql.DataSource;
@@ -20,6 +21,7 @@ public class JdbcBoardRepository implements BoardRepository{
 
     @Override
     public Board save(Board board) {
+
         String sql = "insert into board(title, writer, contents, register_date) values(?, ?, ?, ?)";
 
         Connection conn = null;
@@ -105,6 +107,40 @@ public class JdbcBoardRepository implements BoardRepository{
                 boards.add(board);
             }
             return boards;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    @Override
+    public Comments saveComments(Comments comments) {
+        String sql = "insert into comments(writer_id, comment_register_date, comment_contents, board_id) values(?, ?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;//결과를 받음.
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, comments.getWriter_id());
+            pstmt.setString(2, comments.getComment_register_date());
+            pstmt.setString(3, comments.getComment_contents());
+            pstmt.setLong(4, comments.getBoard_id());
+
+            pstmt.executeUpdate();//db에 실제 쿼리를 날림.
+            rs = pstmt.getGeneratedKeys();
+
+            //rs에 값이 있으면, 값을 꺼냄.
+            if (rs.next()) {
+                comments.setBoard_id(rs.getLong(1));
+            } else {
+                throw new SQLException("id 조회 실패");
+            }
+            return comments;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {

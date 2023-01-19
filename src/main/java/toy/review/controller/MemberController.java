@@ -38,7 +38,6 @@ public class MemberController {
         member.setUser_pw2(form.getUser_pw2());
         member.setName(form.getName());
 
-        //System.out.println(member);
         memberService.join(member);
 
         return "redirect:/";
@@ -60,7 +59,7 @@ public class MemberController {
             log.info("비밀번호 확인 실패");
             return "redirect:/members/update";
         }
-//        System.out.println("성공!!");
+
         log.info("비밀번호 확인 성공");
 
         Optional<Member> member = memberService.findOne(memberId);

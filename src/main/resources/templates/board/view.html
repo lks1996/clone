@@ -1,5 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<script
+        src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
@@ -34,28 +38,12 @@
     </div>
 
 
-<!--    <div>-->
-<!--        <input type="hidden" th:id="board_id" th:value="${boardResult_board_id}"/>-->
-<!--        <h3><td th:text="${boardResult_title}"></td></h3>-->
-<!--        <div class="div_view_writerAnddate">-->
-<!--        <span class="span_view_writer">-->
-<!--            <th class="th_view_writer">작성자: </th>-->
-<!--            <td th:text="${boardResult_writer}"></td>-->
-<!--        </span>-->
-<!--            <span class="span_view_register_date">-->
-<!--            <th class="th_view_register_date">작성 시간: </th>-->
-<!--            <td th:text="${boardResult_register_date}"></td>-->
-<!--        </span>-->
-<!--        </div>-->
-<!--        <div class="div_view_contents">-->
-<!--            <td th:text="${boardResult_contents}"></td>-->
-<!--        </div>-->
-<!--    </div>-->
-
-
     <div class="div_view_comments">
         <td th:text="Comments"></td>
-        <input type="text"/>
+
+        <input type="text" id="newCommentContents"/>
+        <button id="registerComments" class="btn_register_comments" value="등록"
+                th:onclick="registerComments()">등록</button>
         <tr th:each="comment : ${comments}">
             <ul>
                 <td th:text="${comment.user_id}"></td>
@@ -91,5 +79,43 @@
         </table>
     </div>
 </div> <!-- /container -->
+<script>
+    function registerComments(){
+        const data = {
+<!--            user_id: $('#user_id').val(),-->
+            comment_contents: $('#newCommentContents').val(),
+            board_id: $('#board_id').val()
+        };
+
+        // 공백 및 빈 문자열 체크
+        if(!data.comment_contents || data.comment_contents.trim() === ""){
+            alert("공백 또는 입력하지 않은 부분이 있습니다.");
+            return false;
+        }
+        // 유효성 검사
+
+
+        const confirmCheck = confirm("등록하시겠습니까?");
+
+        if(confirmCheck == true){
+            $.ajax({
+                type: 'POST',
+                url: '/board/regcomments',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function(result){
+                if(result){
+                    alert("회원 수정이 완료되었습니다.");
+                    window.location.href="/";
+                } else{
+                    alert("오류 발생. 다시 입력해주세요.");
+                    $('#newCommentContents').focus();
+                }
+            }).fail(function(error){
+                alert(JSON.stringify(error));
+            });
+        }
+    }
+</script>
 </body>
 </html>

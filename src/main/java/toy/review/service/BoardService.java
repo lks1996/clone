@@ -2,6 +2,7 @@ package toy.review.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import toy.review.domain.Board;
+import toy.review.domain.Comments;
 import toy.review.repository.BoardRepository;
 
 import java.util.List;
@@ -22,12 +23,6 @@ public class BoardService {
         return board.getTitle();
     }
 
-//    private void validateBoard(Board board) {
-//
-//        }
-//
-//
-//    }
 
     /* 전체 게시글 조회 */
     public List<Board> findAllBoards() {
@@ -41,8 +36,10 @@ public class BoardService {
 
     /* 특정 게시글 검색(제목으로) */
     public List<Board> findBoardByTitle(String keyword) {
-        List qq = boardRepository.findByTitle(keyword);
-        System.out.println("boardRepository.findByTitle(keyword) :: " + qq);
         return boardRepository.findByTitle(keyword);
+    }
+
+    public Comments registerComments(Comments comments) {
+        return boardRepository.saveComments(comments);
     }
 }

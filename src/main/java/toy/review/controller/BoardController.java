@@ -4,22 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import toy.review.domain.Board;
+import toy.review.domain.Comments;
 import toy.review.domain.Member;
 import toy.review.service.BoardService;
 import toy.review.service.MemberService;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -64,7 +60,7 @@ public class BoardController {
     }
 
     @PostMapping("/board/new")
-    public String create(BoardForm form) throws ParseException {
+    public String create(BoardForm form) {
 
         Date timestamp = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -90,10 +86,33 @@ public class BoardController {
         Board boardResult = boardService.findOneBoardById(bno);
         model.addAttribute("oneBoard", boardResult);
 
+
+
         List<Board> boards = boardService.findAllBoards();
         model.addAttribute("boards", boards);
 
         return "board/view";
+    }
+
+    @PostMapping("/board/regcomments")
+    @ResponseBody
+    public Boolean registerComments(@RequestBody Comments commentsDTO,
+                                    @CookieValue(name = "memberId", required = false) String memberId) {
+
+        Date timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        String now_dt = sdf.format(timestamp);
+
+        Comments comments = new Comments();
+        comments.setWriter_id(memberId);
+        comments.setComment_register_date(now_dt);
+        comments.setComment_contents(commentsDTO.getComment_contents());
+        comments.setBoard_id(commentsDTO.getBoard_id());
+
+        boardService.registerComments(comments);
+        
+        return true;
     }
 
     @GetMapping("/board/search")

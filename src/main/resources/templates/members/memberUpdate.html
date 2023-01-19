@@ -20,19 +20,20 @@
           <label style="font-weight: bold">아이디</label>
           <input type="hidden" th:id="user_id" th:value="${memberId}"/>
           <td th:text="${memberId}"></td>
-
         </div>
+
         <h3>닉네임 변경</h3>
         <div class="input-group input-group-static mb-4">
           <label style="font-weight: bold">기존 닉네임</label>
           <td th:text="${memberName}"></td>
-
         </div>
+
         <div class="input-group input-group-static mb-4">
           <label style="font-weight: bold">변경할 닉네임 입력</label>
           <input type="text" th:id="newNickname" th:name="newNickname"
                  placeholder="변경할 닉네임을 입력하세요." class="form-control" >
         </div>
+
         <h3>비밀번호 변경</h3>
         <div class="input-group input-group-static mb-4">
           <label style="font-weight: bold" th:for="password">변경할 비밀번호 입력</label>
@@ -40,6 +41,7 @@
                  placeholder="변경할 비밀번호를 입력하세요." class="form-control" >
         </div>
       </form>
+
       <button id="memberUpdate" class="btn bg-gradient-primary" value="회원 정보 수정"
               th:onclick="memberUpdate()">회원 정보 수정</button>
 
