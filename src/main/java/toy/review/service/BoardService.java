@@ -30,8 +30,8 @@ public class BoardService {
     }
 
     /* 특정 게시글 검색(아이디로) */
-    public Board findOneBoardById(Long boardId) {
-        return boardRepository.findByBoardId(boardId);
+    public Board findOneBoardById(Long board_id) {
+        return boardRepository.findByBoardId(board_id);
     }
 
     /* 특정 게시글 검색(제목으로) */
@@ -41,5 +41,9 @@ public class BoardService {
 
     public Comments registerComments(Comments comments) {
         return boardRepository.saveComments(comments);
+    }
+
+    public List<Comments> getComments(Long board_id) {
+        return boardRepository.findAllComments(board_id);
     }
 }

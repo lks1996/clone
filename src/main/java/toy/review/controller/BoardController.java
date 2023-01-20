@@ -86,7 +86,9 @@ public class BoardController {
         Board boardResult = boardService.findOneBoardById(bno);
         model.addAttribute("oneBoard", boardResult);
 
-
+        /** comments 가져오기 작성할 것 **/
+        List<Comments> comments = boardService.getComments(bno);
+        model.addAttribute("comments", comments);
 
         List<Board> boards = boardService.findAllBoards();
         model.addAttribute("boards", boards);
@@ -111,7 +113,7 @@ public class BoardController {
         comments.setBoard_id(commentsDTO.getBoard_id());
 
         boardService.registerComments(comments);
-        
+
         return true;
     }
 

@@ -3,13 +3,12 @@ package toy.review.repository;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import toy.review.domain.Board;
 import toy.review.domain.Comments;
-import toy.review.domain.Member;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 public class JdbcBoardRepository implements BoardRepository{
 
@@ -139,6 +138,36 @@ public class JdbcBoardRepository implements BoardRepository{
                 comments.setBoard_id(rs.getLong(1));
             } else {
                 throw new SQLException("id 조회 실패");
+            }
+            return comments;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    @Override
+    public List<Comments> findAllComments(Long board_id) {
+        String sql = "select * from comments where board_id=?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, board_id);
+            rs = pstmt.executeQuery();
+            List<Comments> comments = new ArrayList<>();
+            while(rs.next()) {
+                Comments comment = new Comments();
+                comment.setComment_id(rs.getLong("comment_id"));
+                comment.setWriter_id(rs.getString("writer_id"));
+                comment.setComment_register_date(rs.getString("comment_register_date"));
+                comment.setComment_contents(rs.getString("comment_contents"));
+                comment.setBoard_id(rs.getLong("board_id"));
+
+                comments.add(comment);
             }
             return comments;
         } catch (Exception e) {

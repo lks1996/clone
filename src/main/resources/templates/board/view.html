@@ -44,13 +44,20 @@
         <input type="text" id="newCommentContents"/>
         <button id="registerComments" class="btn_register_comments" value="등록"
                 th:onclick="registerComments()">등록</button>
-        <tr th:each="comment : ${comments}">
-            <ul>
-                <td th:text="${comment.user_id}"></td>
-                <td th:text="${comment.register_date}"></td>
-                <td th:text="${comment.contents}"></td>
-            </ul>
-        </tr>
+        <div class="div_display_comments">
+            <tr th:each="comment : ${comments}">
+                <ul>
+                    <input type="hidden" th:id="comment_id" th:value="${comment.comment_id}"/>
+                    <td th:text="${comment.writer_id}"></td>
+                    <td class="td_1">님의 Comments</td>
+                    <br>
+                    <td class="td_1" th:text="${comment.comment_register_date}"></td>
+                    <br>
+                    <br>
+                    <td th:text="${comment.comment_contents}"></td>
+                </ul>
+            </tr>
+        </div>
     </div>
 
 
@@ -106,7 +113,7 @@
             }).done(function(result){
                 if(result){
                     alert("회원 수정이 완료되었습니다.");
-                    window.location.href="/";
+                    $(".div_display_comments").load(location.href + " .div_display_comments");
                 } else{
                     alert("오류 발생. 다시 입력해주세요.");
                     $('#newCommentContents').focus();

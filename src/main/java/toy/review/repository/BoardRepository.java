@@ -16,4 +16,7 @@ public interface BoardRepository {
     List<Board> findByTitle(String keyword);
 
     Comments saveComments(Comments comments);
+
+
+    List<Comments> findAllComments(Long board_id);
 }
