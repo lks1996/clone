@@ -10,7 +10,7 @@
     <title>view</title>
 </head>
 <body>
-<div class="view_container">
+<div class="container">
     <h1><a href="/"> Toy Web Blog</a></h1>
     <div class="div_view_new_board">
         <a href="/board/new">게시글 작성</a>
@@ -20,7 +20,9 @@
     <div>
         <tr th:each="oneBoard : ${oneBoard}">
             <input type="hidden" th:id="board_id" th:value="${oneBoard.board_id}"/>
-            <h3><td th:text="${oneBoard.title}"></td></h3>
+            <h3>
+                <td th:text="${oneBoard.title}"></td>
+            </h3>
             <div class="div_view_writerAnddate">
         <span class="span_view_writer">
             <th class="th_view_writer">작성자: </th>
@@ -43,7 +45,8 @@
 
         <input type="text" id="newCommentContents"/>
         <button id="registerComments" class="btn_register_comments" value="등록"
-                th:onclick="registerComments()">등록</button>
+                th:onclick="registerComments()">등록
+        </button>
         <div class="div_display_comments">
             <tr th:each="comment : ${comments}">
                 <ul>
@@ -61,30 +64,32 @@
     </div>
 
 
-    <div class="dif_view_boardsList">
-        <table>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>제목 | </th>
-                <th>작성자</th>
-                <th>작성 시간</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="board : ${boards}">
-                <ul>
-                    <td th:text="${board.board_id}"></td>
-                    <td>
-                        <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
-                    </td>
-                    <td th:text="${board.writer}"></td>
-                    <td th:text="${board.register_date}"></td>
-                </ul>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <section class="section-board-list">
+        <div class="dif_view_boardsList">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th class="th-num">번호</th>
+                    <th class="th-title">제목</th>
+                    <th class="th-writer">작성자</th>
+                    <th class="th-date">작성 시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board : ${boards}">
+                    <ul>
+                        <td th:text="${board.board_id}"></td>
+                        <td>
+                            <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
+                        </td>
+                        <td th:text="${board.writer}"></td>
+                        <td th:text="${board.register_date}"></td>
+                    </ul>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div> <!-- /container -->
 <script>
     function registerComments(){

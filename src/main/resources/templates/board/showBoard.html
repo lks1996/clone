@@ -8,20 +8,21 @@
 <body>
 <div class="container">
     <h1><a href="/"> Toy Web Blog</a></h1>
-    <div class="form-group">
-        <a href="/board/new">게시글 작성</a>
-        <form action="/board/search" method="GET" class="form-boardSearch" role="search">
-            <input type="text" name="keyword" id="search" placeholder="검색">
-            <button type="submit">검색</button>
-        </form>
+    <section class="section-board-list">
+        <div class="form-group">
+            <a href="/board/new">게시글 작성</a>
+            <form action="/board/search" method="GET" class="form-boardSearch" role="search">
+                <input type="text" name="keyword" id="search" placeholder="검색">
+                <button type="submit">검색</button>
+            </form>
             <table class="board-table">
                 <thead>
-                    <tr>
-                        <th class="th-num">번호</th>
-                        <th class="th-title">제목</th>
-                        <th class="th-writer">작성자</th>
-                        <th class="th-date">작성 시간</th>
-                    </tr>
+                <tr>
+                    <th class="th-num">번호</th>
+                    <th class="th-title">제목</th>
+                    <th class="th-writer">작성자</th>
+                    <th class="th-date">작성 시간</th>
+                </tr>
                 </thead>
                 <tbody>
                 <tr th:each="board : ${boards}">
@@ -37,6 +38,7 @@
                 </tbody>
             </table>
         </div>
+    </section>
 </div> <!-- /container -->
 </body>
 </html>
