@@ -17,8 +17,10 @@
             </div>
 
             <label for="title">제목</label>
-            <input type="text" id="title" name="title" placeholder="제목을 입력하세요">
-            <input type="text" id="contents" name="contents" placeholder="내용을 입력하세요">
+            <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+            <div>
+                <textarea id="contents" name="contents" placeholder="내용을 입력하세요." required></textarea>
+            </div>
         </div>
         <button type="submit">등록</button>
     </form>

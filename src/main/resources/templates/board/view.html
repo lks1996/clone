@@ -41,25 +41,32 @@
 
 
     <div class="div_view_comments">
-        <td th:text="Comments"></td>
+        <td th:text="${commentSize}"></td>
+        <td>개의 Comments</td>
+        <div class="div_view_registerComments">
+            <textarea id="newCommentContents" placeholder="내용을 입력하세요." required></textarea>
+            <button id="registerComments" class="btn_register_comments" value="등록"
+                    th:onclick="registerComments()">등록
+            </button>
+        </div>
+        <span class="txsub">남은글자수 : <input type="text" readonly  value="200" name="counter" id="counter"></span>
 
-        <input type="text" id="newCommentContents"/>
-        <button id="registerComments" class="btn_register_comments" value="등록"
-                th:onclick="registerComments()">등록
-        </button>
         <div class="div_display_comments">
-            <tr th:each="comment : ${comments}">
-                <ul>
-                    <input type="hidden" th:id="comment_id" th:value="${comment.comment_id}"/>
-                    <td th:text="${comment.writer_id}"></td>
-                    <td class="td_1" style="color:blue;">님의 Comments</td>
-                    <br>
-                    <td class="td_1" th:text="${comment.comment_register_date}"></td>
-                    <br>
-                    <br>
-                    <td th:text="${comment.comment_contents}"></td>
-                </ul>
-            </tr>
+            <tbody>
+                <tr th:each="comment : ${comments}">
+                    <ul>
+                        <input type="hidden" th:id="comment_id" th:value="${comment.comment_id}"/>
+                        <td th:text="${comment.writer_id}"></td>
+                        <td class="td_1" style="color:blue;">님의 Comments</td>
+                        <br>
+                        <td class="td_1" th:text="${comment.comment_register_date}"></td>
+                        <br>
+                        <br>
+                        <td th:text="${comment.comment_contents}"></td>
+                    </ul>
+                </tr>
+            </tbody>
+
         </div>
     </div>
 
@@ -94,18 +101,17 @@
 <script>
     function registerComments(){
         const data = {
-<!--            user_id: $('#user_id').val(),-->
             comment_contents: $('#newCommentContents').val(),
             board_id: $('#board_id').val()
         };
 
-        // 공백 및 빈 문자열 체크
+<!-- 공백 및 빈 문자열 체크 -->
         if(!data.comment_contents || data.comment_contents.trim() === ""){
             alert("공백 또는 입력하지 않은 부분이 있습니다.");
             return false;
         }
-        // 유효성 검사
 
+<!-- 유효성 검사-->
 
         const confirmCheck = confirm("등록하시겠습니까?");
 
@@ -117,7 +123,7 @@
                 data: JSON.stringify(data)
             }).done(function(result){
                 if(result){
-                    alert("회원 수정이 완료되었습니다.");
+                    alert("댓글 등록이 완료되었습니다.");
                     $(".div_display_comments").load(location.href + " .div_display_comments");
                 } else{
                     alert("오류 발생. 다시 입력해주세요.");
@@ -128,6 +134,16 @@
             });
         }
     }
+
+<!-- 댓글 입력창 글자 수 제한 함수 -->
+     $('#newCommentContents').keyup(function (e){
+      var content = $(this).val();
+      $('#counter').val(200-content.length);
+
+      if(content.length > 200) {
+      $(this).val($(this).val().substring(0, 200));
+      }
+      });
 </script>
 </body>
 </html>

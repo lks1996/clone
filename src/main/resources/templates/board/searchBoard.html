@@ -14,30 +14,31 @@
             <input type="text" name="keyword" id="search" placeholder="검색">
             <button type="submit">검색</button>
         </form>
-        <table>
-            <thead>
-            <tr>
-                <th class="th-num">번호</th>
-                <th class="th-title">제목</th>
-                <th class="th-writer">작성자</th>
-                <th class="th-date">작성 시간</th>
-            </tr>
-            </thead>
-            <tbody>
-            !!!!!!!!!!!!!실행시켜보고 검색 목록 테이블 css 수정할것.
-            <tr th:each="board : ${boards}">
-                <ul>
-                    <td th:text="${board.board_id}"></td>
-                    <td>
-                        <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
-                    </td>
-                    <td th:text="${board.writer}"></td>
-                    <td th:text="${board.register_date}"></td>
-                </ul>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div> <!-- /container -->
+        <div>
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th class="th-num">번호</th>
+                    <th class="th-title">제목</th>
+                    <th class="th-writer">작성자</th>
+                    <th class="th-date">작성 시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board : ${boards}">
+                    <ul>
+                        <td th:text="${board.board_id}"></td>
+                        <td>
+                            <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
+                        </td>
+                        <td th:text="${board.writer}"></td>
+                        <td th:text="${board.register_date}"></td>
+                    </ul>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> <!-- /container -->
+</div>
 </body>
 </html>
