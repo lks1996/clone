@@ -1,116 +1,128 @@
 @charset "utf-8";
 
 body{
-background-color : #CFD4C6;
+ background-color : #CFD4C6;
 }
 
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+ border-collapse: collapse;
+ border-spacing: 0;
 }
 
 }
 section.section-board-list {
-  padding: 80px 0;
+ padding: 80px 0;
 }
 
 a{
-text-decoration-line : none;
+ text-decoration-line : none;
 }
 
 .board-table {
-  font-size: 14px;
-  width: 100%;
-  border-top: 4px solid #afafaf;
-  border-bottom: 1px solid #ccc;
+ font-size: 14px;
+ width: 100%;
+ border-top: 4px solid #afafaf;
+ border-bottom: 1px solid #ccc;
 }
 
 .board-table a {
-  color: #333;
-  display: inline-block;
-  line-height: 1.4;
-  word-break: break-all;
-  vertical-align: middle;
+ color: #333;
+ display: inline-block;
+ line-height: 1.4;
+ word-break: break-all;
+ vertical-align: middle;
 }
 
 .board-table a:hover {
-  text-decoration: underline;
+ text-decoration: underline;
 }
 .board-table th {
-  text-align: center;
+ text-align: center;
 }
 
 .board-table .th-num {
-  width: 100px;
-  text-align: center;
+ width: 100px;
+ text-align: center;
 }
 
 .board-table .th-date, .th-writer {
-  width: 200px;
+ width: 200px;
 }
 
 .board-table th, .board-table td {
-  padding: 5px 0;
+ padding: 5px 0;
 }
 
 .board-table tbody td {
-  border-top: 1px solid #e7e7e7;
-  text-align: center;
+ border-top: 1px solid #e7e7e7;
+ text-align: center;
 }
 
 .board-table tbody th {
-  padding-left: 40px;
-  padding-right: 14px;
-  border-top: 1px solid #e7e7e7;
-  text-align: left;
+ padding-left: 40px;
+ padding-right: 14px;
+ border-top: 1px solid #e7e7e7;
+ text-align: left;
 }
 
 .div_display_comments td{
-border-top: 2px solid #e7e7e7;
+ border-top: 2px solid #e7e7e7;
 }
 
 div.main_dock{
-text-align: right;
+ text-align: right;
 }
 
 div.side_dock{
-text-align: right;
+ text-align: right;
 }
 
-.span_view_writer, .span_view_register_date{
-padding:1px 50px 3px 10px;
+.span_view_writer{
+padding:0px 680px 0px 0px;
+
+}
+
+.span_view_register_date{
+ padding:0px 0px 0px 0px;
+}
+
+.div_view_writerAnddate{
+ background-color:#bcbcbc2b;
+ border-bottom: 1px solid #afafaf70;
 }
 
 .div_view_contents{
-padding:25px 50px 50px 15px;
-border-bottom: 1px solid #afafaf70
-}
-
-.td_1{
-font-size: x-small;
+ padding:25px 50px 50px 15px;
+ border-bottom: 1px solid #afafaf70
 }
 
 .dif_view_boardsList{
-background-color: #d2cdc76b;
+ background-color: #d2cdc76b;
 }
 
 .div_display_comments{
-  background-color:#cccccc3b
+ background-color:#cccccc3b
 }
 
 .div_display_comments ul{
-  border-top: 1px solid #bbbbbb;
+ border-top: 1px solid #bbbbbb;
+}
+
+.div_createBoard_textarea textarea{
+ width: 80%;
+ height: 300px;
+ resize:none;
 }
 
 .div_view_registerComments textarea{
-width:400px;
-height:50px;
-resize:none;
+ width:400px;
+ height:50px;
+ resize:none;
 }
 
 
 .container {
-  width: 1000px;
-  margin: 0 auto;
+ width: 1000px;
+ margin: 0 auto;
 }
 

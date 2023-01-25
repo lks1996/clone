@@ -17,21 +17,21 @@
     </div>
 
 
-    <div>
+    <div class="div_view_contentsPart">
         <tr th:each="oneBoard : ${oneBoard}">
             <input type="hidden" th:id="board_id" th:value="${oneBoard.board_id}"/>
             <h3>
                 <td th:text="${oneBoard.title}"></td>
             </h3>
             <div class="div_view_writerAnddate">
-        <span class="span_view_writer">
-            <th class="th_view_writer">작성자: </th>
-            <td th:text="${oneBoard.writer}"></td>
-        </span>
-                <span class="span_view_register_date">
-            <th class="th_view_register_date">작성 시간: </th>
-            <td th:text="${oneBoard.register_date}"></td>
-        </span>
+                <span class="span_view_writer">
+                    <th class="th_view_writer">작성자: </th>
+                    <td th:text="${oneBoard.writer}"></td>
+                </span>
+                        <span class="span_view_register_date">
+                    <th class="th_view_register_date">작성 시간: </th>
+                    <td th:text="${oneBoard.register_date}"></td>
+                </span>
             </div>
             <div class="div_view_contents">
                 <td th:text="${oneBoard.contents}"></td>
@@ -44,7 +44,7 @@
         <td th:text="${commentSize}"></td>
         <td>개의 Comments</td>
         <div class="div_view_registerComments">
-            <textarea id="newCommentContents" placeholder="내용을 입력하세요." required></textarea>
+            <textarea id="newCommentContents" placeholder="내용을 입력하세요." onkeyup="countKeyup()" required></textarea>
             <button id="registerComments" class="btn_register_comments" value="등록"
                     th:onclick="registerComments()">등록
             </button>
@@ -99,6 +99,20 @@
     </section>
 </div> <!-- /container -->
 <script>
+<!-- 댓글 입력창 글자 수 제한 함수 -->
+function countKeyup(){
+        $('#newCommentContents').keyup(function (e){
+        var content = $(this).val();
+        $('#counter').val(200-content.length);
+
+        if(content.length > 200) {
+            $(this).val($(this).val().substring(0, 200));
+        }
+      });
+}
+
+
+<!-- 댓글 섹션만 리로드하는 함수 -->
     function registerComments(){
         const data = {
             comment_contents: $('#newCommentContents').val(),
@@ -124,7 +138,8 @@
             }).done(function(result){
                 if(result){
                     alert("댓글 등록이 완료되었습니다.");
-                    $(".div_display_comments").load(location.href + " .div_display_comments");
+                    $('#counter').val('200');
+                    $(".div_view_comments").load(location.href + " .div_view_comments");
                 } else{
                     alert("오류 발생. 다시 입력해주세요.");
                     $('#newCommentContents').focus();
@@ -135,15 +150,7 @@
         }
     }
 
-<!-- 댓글 입력창 글자 수 제한 함수 -->
-     $('#newCommentContents').keyup(function (e){
-      var content = $(this).val();
-      $('#counter').val(200-content.length);
 
-      if(content.length > 200) {
-      $(this).val($(this).val().substring(0, 200));
-      }
-      });
 </script>
 </body>
 </html>
