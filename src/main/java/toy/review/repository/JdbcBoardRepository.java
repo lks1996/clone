@@ -114,6 +114,67 @@ public class JdbcBoardRepository implements BoardRepository{
     }
 
     @Override
+    public List<Board> findAll() {
+        String sql = "select * from board";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            List<Board> boards = new ArrayList<>();
+            while(rs.next()) {
+                Board board = new Board();
+                board.setBoard_id(rs.getLong("board_id"));
+                board.setTitle(rs.getString("title"));
+                board.setWriter(rs.getString("writer"));
+                board.setContents(rs.getString("contents"));
+                board.setRegister_date(rs.getString("register_date"));
+                boards.add(board);
+            }
+            return boards;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    @Override
+    public List<Board> findWithPaging(int startIndex, int pageSize) {
+        String sql = "select * from board limit ?, ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, startIndex);
+            pstmt.setLong(2, pageSize);
+            rs = pstmt.executeQuery();
+            List<Board> boards = new ArrayList<>();
+            while(rs.next()) {
+                Board board = new Board();
+                board.setBoard_id(rs.getLong("board_id"));
+                board.setTitle(rs.getString("title"));
+                board.setWriter(rs.getString("writer"));
+                board.setContents(rs.getString("contents"));
+                board.setRegister_date(rs.getString("register_date"));
+                boards.add(board);
+            }
+            return boards;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+
+
+
+    @Override
     public Comments saveComments(Comments comments) {
         String sql = "insert into comments(writer_id, comment_register_date, comment_contents, board_id) values(?, ?, ?, ?)";
 
@@ -177,33 +238,7 @@ public class JdbcBoardRepository implements BoardRepository{
         }
     }
 
-    @Override
-    public List<Board> findAll() {
-        String sql = "select * from board";
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            List<Board> boards = new ArrayList<>();
-            while(rs.next()) {
-                Board board = new Board();
-                board.setBoard_id(rs.getLong("board_id"));
-                board.setTitle(rs.getString("title"));
-                board.setWriter(rs.getString("writer"));
-                board.setContents(rs.getString("contents"));
-                board.setRegister_date(rs.getString("register_date"));
-                boards.add(board);
-            }
-            return boards;
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        } finally {
-            close(conn, pstmt, rs);
-        }
-    }
+
 
 
 

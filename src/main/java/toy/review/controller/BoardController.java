@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import toy.review.domain.Board;
 import toy.review.domain.Comments;
 import toy.review.domain.Member;
+import toy.review.domain.Paging;
 import toy.review.service.BoardService;
 import toy.review.service.MemberService;
 
@@ -31,9 +32,40 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public String showBoard(Model model) {
-        List<Board> boards = boardService.findAllBoards();
+    public String showBoard(Model model, @RequestParam(defaultValue = "1") int page) {
+//        List<Board> boards = boardService.findAllBoards();
+//        model.addAttribute("boards", boards);
+
+
+
+
+        // 총 게시물 수
+        int totalListCnt = boardService.findAllBoards().size();
+
+        // 생성인자로  총 게시물 수, 현재 페이지를 전달
+        Paging paging = new Paging(totalListCnt, page);
+
+        // DB select start index
+        int startIndex = paging.getStartIndex();
+        // 페이지 당 보여지는 게시글의 최대 개수
+        int pageSize = paging.getPageSize();
+
+        System.out.println("totalListCnt = " + totalListCnt);
+        System.out.println("startIndex = " + startIndex);
+        System.out.println("pageSize = " + pageSize);
+
+
+        List<Board> boards = boardService.pagingBoard(startIndex, pageSize);
         model.addAttribute("boards", boards);
+        model.addAttribute("pagination", paging);
+
+
+//        model.addAttribute("boardList", boardList);
+//        model.addAttribute("pagination", paging);
+
+
+
+
         return "board/showBoard";
     }
 

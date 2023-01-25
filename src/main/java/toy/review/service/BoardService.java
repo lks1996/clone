@@ -39,6 +39,10 @@ public class BoardService {
         return boardRepository.findByTitle(keyword);
     }
 
+    public List<Board> pagingBoard(int startIndex, int pageSize) {
+        return boardRepository.findWithPaging(startIndex, pageSize);
+    }
+
     public Comments registerComments(Comments comments) {
         return boardRepository.saveComments(comments);
     }
