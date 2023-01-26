@@ -145,6 +145,10 @@ public class Paging {
         /** 3. 현재 페이지 **/
         setPage(page);
 
+        /** 4. 현재 블럭 **/
+        // 현재 페이지 * 1.0을 블록의 최대 개수로 나누어주고 올림한다.
+        // 현재 블록을 구할 수 있다.
+        setBlock((int) Math.ceil((page * 1.0)/blockSize));
 
         /** 5. 총 게시글 수 **/
         setTotalListCnt(totalListCnt);
@@ -160,12 +164,6 @@ public class Paging {
         // 한 블럭의 최대 개수를 총  페이지의 수 * 1.0로 나누어주고 올림 해준다.
         // 총 블럭 수를 구할 수 있다.
         setTotalBlockCnt((int) Math.ceil(totalPageCnt * 1.0 / blockSize));
-
-
-        /** 4. 현재 블럭 **/
-        // 현재 페이지 * 1.0을 블록의 최대 개수로 나누어주고 올림한다.
-        // 현재 블록을 구할 수 있다.
-        setBlock((int) Math.ceil((page * 1.0)/blockSize));
 
 
         /** 8. 블럭 시작 페이지 **/
@@ -185,7 +183,9 @@ public class Paging {
 
 
         /* === 이전 블럭에 대한 validation === */
-        if(prevBlock < 1) {this.prevBlock = 1;}
+        if(prevBlock < 1) {
+            this.prevBlock = 1;
+        }
 
 
         /** 12. 다음 블럭(클릭 시, 다음 블럭 첫번째 페이지) **/
@@ -193,7 +193,9 @@ public class Paging {
 
 
         /* === 다음 블럭에 대한 validation ===*/
-        if(nextBlock > totalPageCnt) {nextBlock = totalPageCnt;}
+        if(nextBlock > totalPageCnt) {
+            nextBlock = totalPageCnt;
+        }
 
 
         /** 10. DB 접근 시작 index **/
