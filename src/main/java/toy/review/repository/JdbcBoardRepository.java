@@ -83,35 +83,6 @@ public class JdbcBoardRepository implements BoardRepository{
         }
     }
 
-    @Override
-    public List<Board> findByTitle(String keyword){
-        String sql = "select * from board where title like ?";
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, "%" + keyword + "%");
-            rs = pstmt.executeQuery();
-            List<Board> boards = new ArrayList<>();
-            while(rs.next()){
-                Board board = new Board();
-                board.setBoard_id(rs.getLong("board_id"));
-                board.setTitle(rs.getString("title"));
-                board.setWriter(rs.getString("writer"));
-                board.setContents(rs.getString("contents"));
-                board.setRegister_date(rs.getString("register_date"));
-                boards.add(board);
-            }
-            return boards;
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        } finally {
-            close(conn, pstmt, rs);
-        }
-    }
 
     @Override
     public List<Board> findAll() {

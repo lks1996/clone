@@ -38,7 +38,50 @@
                 </tbody>
             </table>
         </div>
-    </div> <!-- /container -->
+    </div><!-- /container -->
+
+    <div class="div_showBoard_pagingBlock">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board/search(keyword = ${keyword}, page=1)}" aria-label="Previous">
+                    <span aria-hidden="true">처음</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:if="${pagination.block == 1}">
+                <span aria-hidden="true">이전</span>
+            </li>
+            <li class="page-item" th:if="${pagination.block > 1}">
+                <a class="page-link" th:href="@{/board/search(keyword = ${keyword}, page = ${pagination.prevBlock})}" aria-label="Previous">
+                    <span aria-hidden="true">이전</span>
+                </a>
+            </li>
+
+            <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+                <li class="page-item"
+                    th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+                    th:each="pageButton : ${#numbers.sequence(start, end)}">
+                    <a class="page-link" th:href="@{/board/search(keyword = ${keyword}, page = ${pageButton})}" th:text=${pageButton}></a>
+                </li>
+            </th:block>
+
+            <li class="page-item" th:if="${pagination.block == pagination.totalBlockCnt}">
+                <span aria-hidden="true">다음</span>
+            </li>
+            <li class="page-item" th:if="${pagination.block < pagination.totalBlockCnt}">
+                <a class="page-link" th:href="@{/board/search(keyword = ${keyword}, page = ${pagination.nextBlock})}" aria-label="Next">
+                    <span aria-hidden="true">다음</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board/search(keyword = ${keyword}, page = ${pagination.totalPageCnt})}" aria-label="Previous">
+                    <span aria-hidden="true">끝</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
 </div>
 </body>
 </html>
