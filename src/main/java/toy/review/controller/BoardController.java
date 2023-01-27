@@ -33,22 +33,6 @@ public class BoardController {
 
     @GetMapping("/board")
     public String showBoard(Model model, @RequestParam(defaultValue = "1") int page) {
-//        List<Board> boards = boardService.findAllBoards();
-//        model.addAttribute("boards", boards);
-
-//        Date timestamp = new Timestamp(System.currentTimeMillis());
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//
-//        String now_dt = sdf.format(timestamp);
-//
-//        Board board = new Board();
-//        board.setTitle("good");
-//        board.setContents("good!!");
-//        board.setWriter("its");
-//        board.setRegister_date(now_dt);
-//        for (int i = 0; i < 100; i++) {
-//            boardService.registration(board);
-//        }
 
         // 총 게시물 수
         int totalListCnt = boardService.findAllBoards().size();
@@ -69,13 +53,6 @@ public class BoardController {
         List<Board> boards = boardService.pagingBoard(startIndex, pageSize);
         model.addAttribute("boards", boards);
         model.addAttribute("pagination", paging);
-
-
-//        model.addAttribute("boardList", boardList);
-//        model.addAttribute("pagination", paging);
-
-
-
 
         return "board/showBoard";
     }
