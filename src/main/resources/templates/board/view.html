@@ -12,8 +12,10 @@
 <body>
 <div class="container">
     <h1><a href="/"> Toy Web Blog</a></h1>
-    <div class="div_view_new_board">
-        <a href="/board/new">게시글 작성</a>
+    <div class="div_public_button">
+        <a href="/board/new">글쓰기</a>
+        <th> | </th>
+        <a th:href="@{/board(page=${backToList})}">목록</a>
     </div>
 
 

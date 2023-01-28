@@ -4,6 +4,10 @@ body{
  background-color : #CFD4C6;
 }
 
+h1{
+ width:100%;
+}
+
 table {
  border-collapse: collapse;
  border-spacing: 0;
@@ -132,6 +136,9 @@ padding:0px 680px 0px 0px;
  margin-right:20px;
 }
 
+.div_public_button{
+ float:right;
+}
 
 .container {
  width: 1000px;

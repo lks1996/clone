@@ -9,11 +9,19 @@
 <div class="container">
     <h1><a href="/"> Toy Web Blog</a></h1>
     <div class="form-group">
-        <a href="/board/new">게시글 작성</a>
-        <form action="/board/search" method="GET" class="form-boardSearch" role="search">
-            <input type="text" name="keyword" id="search" placeholder="검색">
-            <button type="submit">검색</button>
-        </form>
+        <div class="div_public_header">
+            <form action="/board/search" method="GET" class="form-boardSearch" role="search" style="display:inline-block;">
+                <input type="text" name="keyword" id="search" placeholder="검색">
+                <button type="submit">검색</button>
+            </form>
+            <div class="div_public_button">
+                <a href="/board/new">글쓰기</a>
+                <th> | </th>
+                <a href="/board">목록</a>
+            </div>
+
+        </div>
+
         <div>
             <table class="board-table">
                 <thead>
@@ -29,7 +37,7 @@
                     <ul>
                         <td th:text="${board.board_id}"></td>
                         <td>
-                            <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
+                            <a th:href="@{/board/view(bno = ${board.board_id})}">[[${board.title}]]</a>
                         </td>
                         <td th:text="${board.writer}"></td>
                         <td th:text="${board.register_date}"></td>

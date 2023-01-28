@@ -16,33 +16,39 @@
     <h1><a href="/"> Toy Web Blog</a></h1>
     <section class="section-board-list">
         <div class="form-group">
-            <a href="/board/new">게시글 작성</a>
-            <form action="/board/search" method="GET" class="form-boardSearch" role="search">
-                <input type="text" name="keyword" id="search" placeholder="검색">
-                <button type="submit">검색</button>
-            </form>
-            <table class="board-table">
-                <thead>
-                <tr>
-                    <th class="th-num">번호</th>
-                    <th class="th-title">제목</th>
-                    <th class="th-writer">작성자</th>
-                    <th class="th-date">작성 시간</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="board : ${boards}">
-                    <ul>
-                        <td th:text="${board.board_id}"></td>
-                        <th>
-                            <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
-                        </th>
-                        <td th:text="${board.writer}"></td>
-                        <td th:text="${board.register_date}"></td>
-                    </ul>
-                </tr>
-                </tbody>
-            </table>
+            <div class="div_public_header">
+                <form action="/board/search" method="GET" class="form-boardSearch" role="search"
+                      style="display:inline-block;">
+                    <input type="text" name="keyword" id="search" placeholder="검색">
+                    <button type="submit">검색</button>
+                </form>
+                <div class="div_public_button">
+                    <a href="/board/new">글쓰기</a>
+                </div>
+
+                <table class="board-table">
+                    <thead>
+                    <tr>
+                        <th class="th-num">번호</th>
+                        <th class="th-title">제목</th>
+                        <th class="th-writer">작성자</th>
+                        <th class="th-date">작성 시간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="board : ${boards}">
+                        <ul>
+                            <td th:text="${board.board_id}"></td>
+                            <th>
+                                <a th:href="@{/board/view(page = ${pagination.page}, bno = ${board.board_id})}">[[${board.title}]]</a>
+                            </th>
+                            <td th:text="${board.writer}"></td>
+                            <td th:text="${board.register_date}"></td>
+                        </ul>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 

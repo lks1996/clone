@@ -13,8 +13,6 @@ public interface BoardRepository {
 
     List<Board> findAll();
 
-    List<Board> findWithPaging(int startIndex, int pageSize);
-
     Comments saveComments(Comments comments);
 
 

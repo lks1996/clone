@@ -33,11 +33,8 @@ public class BoardController {
 
     @GetMapping("/board")
     public String showBoard(Model model, @RequestParam(defaultValue = "1") int page) {
-<<<<<<< HEAD
 
         List<Board> boards = boardService.findAllBoards();
-=======
->>>>>>> c6ae5823a41d610dc3183a61e2a279b28045bf66
 
         // 총 게시물 수
         int totalListCnt = boards.size();
@@ -60,6 +57,7 @@ public class BoardController {
         }
 
         model.addAttribute("pagination", paging);
+
 
         return "board/showBoard";
     }
@@ -89,10 +87,7 @@ public class BoardController {
     @PostMapping("/board/new")
     public String create(BoardForm form) {
 
-        Date timestamp = new Timestamp(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
-        String now_dt = sdf.format(timestamp);
+        String now_dt = whatTimeIsItNow();
 
         log.info(now_dt);
 
@@ -102,14 +97,14 @@ public class BoardController {
         board.setWriter(form.getWriter());
         board.setRegister_date(now_dt);
 
-        System.out.println("form.getWriter() = " + form.getWriter());
         boardService.registration(board);
 
         return "redirect:/board";
     }
 
-    @GetMapping("/board/view/{bno}")
-    public String viewBoard(@PathVariable Long bno, Model model) {
+    @GetMapping("/board/view")
+    public String viewBoard(Model model, Long bno, @RequestParam(defaultValue = "1") int page) {
+
         Board boardResult = boardService.findOneBoardById(bno);
         model.addAttribute("oneBoard", boardResult);
 
@@ -121,6 +116,8 @@ public class BoardController {
         List<Board> boards = boardService.findAllBoards();
         model.addAttribute("boards", boards);
 
+        model.addAttribute("backToList", page);
+
         return "board/view";
     }
 
@@ -129,10 +126,7 @@ public class BoardController {
     public Boolean registerComments(@RequestBody Comments commentsDTO,
                                     @CookieValue(name = "memberId", required = false) String memberId) {
 
-        Date timestamp = new Timestamp(System.currentTimeMillis());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
-        String now_dt = sdf.format(timestamp);
+        String now_dt = whatTimeIsItNow();
 
         Comments comments = new Comments();
         comments.setWriter_id(memberId);
@@ -170,5 +164,14 @@ public class BoardController {
         model.addAttribute("pagination", paging);
 
         return "board/searchBoard";
+    }
+
+    public String whatTimeIsItNow() {
+        Date timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        String now_dt = sdf.format(timestamp);
+
+        return now_dt;
     }
 }
