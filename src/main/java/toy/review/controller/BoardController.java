@@ -33,8 +33,11 @@ public class BoardController {
 
     @GetMapping("/board")
     public String showBoard(Model model, @RequestParam(defaultValue = "1") int page) {
+<<<<<<< HEAD
 
         List<Board> boards = boardService.findAllBoards();
+=======
+>>>>>>> c6ae5823a41d610dc3183a61e2a279b28045bf66
 
         // 총 게시물 수
         int totalListCnt = boards.size();
