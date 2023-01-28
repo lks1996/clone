@@ -33,49 +33,30 @@ public class BoardController {
 
     @GetMapping("/board")
     public String showBoard(Model model, @RequestParam(defaultValue = "1") int page) {
-//        List<Board> boards = boardService.findAllBoards();
-//        model.addAttribute("boards", boards);
 
-//        Date timestamp = new Timestamp(System.currentTimeMillis());
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//
-//        String now_dt = sdf.format(timestamp);
-//
-//        Board board = new Board();
-//        board.setTitle("good");
-//        board.setContents("good!!");
-//        board.setWriter("its");
-//        board.setRegister_date(now_dt);
-//        for (int i = 0; i < 100; i++) {
-//            boardService.registration(board);
-//        }
+        List<Board> boards = boardService.findAllBoards();
 
         // 총 게시물 수
-        int totalListCnt = boardService.findAllBoards().size();
+        int totalListCnt = boards.size();
 
         // 생성인자로  총 게시물 수, 현재 페이지를 전달
         Paging paging = new Paging(totalListCnt, page);
 
-        // DB select start index
+        // 한 페이지의 첫 인덱스
         int startIndex = paging.getStartIndex();
+
         // 페이지 당 보여지는 게시글의 최대 개수
         int pageSize = paging.getPageSize();
 
-        System.out.println("totalListCnt = " + totalListCnt);
-        System.out.println("startIndex = " + startIndex);
-        System.out.println("pageSize = " + pageSize);
+        if (totalListCnt > 10) {
+            List<Board> PagedBoardList = boardService.pagination(boards, startIndex, pageSize, totalListCnt);
+            model.addAttribute("boards", PagedBoardList);
+        }
+        else {
+            model.addAttribute("boards", boards);
+        }
 
-
-        List<Board> boards = boardService.pagingBoard(startIndex, pageSize);
-        model.addAttribute("boards", boards);
         model.addAttribute("pagination", paging);
-
-
-//        model.addAttribute("boardList", boardList);
-//        model.addAttribute("pagination", paging);
-
-
-
 
         return "board/showBoard";
     }
@@ -166,20 +147,16 @@ public class BoardController {
 
         List<Board> boards = boardService.findBoardByTitle(keyword);
 
-        // 총 게시물 수
         int totalListCnt = boards.size();
 
-        // 생성인자로  총 게시물 수, 현재 페이지를 전달
         Paging paging = new Paging(totalListCnt, page);
 
-        // 한 페이지의 첫 인덱스
         int startIndex = paging.getStartIndex();
 
-        // 페이지 당 보여지는 게시글의 최대 개수
         int pageSize = paging.getPageSize();
 
         if (totalListCnt > 10) {
-            List<Board> PagedBoardList = boardService.pagination(boards, startIndex, pageSize);
+            List<Board> PagedBoardList = boardService.pagination(boards, startIndex, pageSize, totalListCnt);
             model.addAttribute("boards", PagedBoardList);
         }
         else {

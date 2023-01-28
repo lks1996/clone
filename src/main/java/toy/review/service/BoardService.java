@@ -66,16 +66,19 @@ public class BoardService {
         return searchedBoardList;
     }
 
-    public List<Board> pagingBoard(int startIndex, int pageSize) {
-        return boardRepository.findWithPaging(startIndex, pageSize);
-    }
 
-    public List<Board> pagination(List<Board> boards, int startIndex, int pageSize) {
+    public List<Board> pagination(List<Board> boards, int startIndex, int pageSize, int totalListCnt) {
         List<Board> PagedBoardList = new ArrayList<>();
         int lastIndex = startIndex + pageSize;
 
+        //IndexOutOfBoundsException 발생 방지
+        if (lastIndex > totalListCnt) {
+            lastIndex = totalListCnt;
+        }
+
         System.out.println("!!!!!!!!!!!!startIndex = " + startIndex);
-        System.out.println("!!!!!!!!!!!!startIndex + pageSize = " + (startIndex+pageSize) );
+        System.out.println("!!!!!!!!!!!!startIndex + pageSize = " + lastIndex);
+
 
         for(int i = startIndex; i < lastIndex; i++){
             Board board = new Board();
