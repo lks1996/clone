@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <title>checkPwdForm</title>
+</head>
+<body>
+<div class="container">
+    <h1><a href="/"> Toy Web Blog</a></h1>
+    <form action="/checkPwd" method="post">
+            <label class="form-label">비밀번호 확인</label>
+            <input type="password" id="user_pw" name="user_pw">
+            <button type="submit">비밀번호 확인</button>
+        </form>
+</div>
+</body>
+</html>

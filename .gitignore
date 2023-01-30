@@ -3,11 +3,11 @@ HELP.md
 application.properties
 checkPwdForm2.html
 memberUpdate.js
-build/
+
 config/
 test/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
+
 !**/src/test/**/build/
 weatherExample.java
 

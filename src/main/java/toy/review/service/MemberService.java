@@ -1,6 +1,7 @@
 package toy.review.service;
 
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+//import org.springframework.transaction.annotation.Transactional;
 import toy.review.domain.Member;
 import toy.review.domain.MemberDTO;
 import toy.review.repository.MemberRepository;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Transactional
+@Service
 public class MemberService {
 
     private final MemberRepository memberRepository;

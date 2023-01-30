@@ -1,6 +1,7 @@
 package toy.review.service;
 
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import toy.review.domain.Board;
 import toy.review.domain.Comments;
 import toy.review.repository.BoardRepository;
@@ -8,7 +9,7 @@ import toy.review.repository.BoardRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
+@Service
 public class BoardService {
 
     private final BoardRepository boardRepository;

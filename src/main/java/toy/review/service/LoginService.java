@@ -1,13 +1,14 @@
 package toy.review.service;
 
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+//import org.springframework.transaction.annotation.Transactional;
 import toy.review.domain.Member;
 import toy.review.repository.MemberRepository;
 
 import javax.swing.text.html.Option;
 import java.util.Optional;
 
-@Transactional
+@Service
 public class LoginService {
     private static MemberRepository memberRepository;
 

@@ -66,13 +66,13 @@ public class BoardController {
     public String createBoard(@CookieValue(name = "memberId", required = false) String memberId,
                               Model model) {
         if (memberId == null) {
-            log.info("로그인 후 게시글 작성 가능");
+            //log.info("로그인 후 게시글 작성 가능");
             return "login/loginForm";
         }
         // 쿠키에 대응되는 멤버 있는지 확인
         Optional<Member> loginMember = memberService.findOne(memberId);
 
-        log.info("Board_loginMember" + loginMember.get().getUser_id());
+        //log.info("Board_loginMember" + loginMember.get().getUser_id());
 
         if (loginMember == null) {
             return "home";
@@ -89,7 +89,7 @@ public class BoardController {
 
         String now_dt = whatTimeIsItNow();
 
-        log.info(now_dt);
+        //log.info(now_dt);
 
         Board board = new Board();
         board.setTitle(form.getTitle());

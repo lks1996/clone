@@ -78,7 +78,7 @@ public class JdbcMemberRepository implements MemberRepository {
 
             //rs에 값이 있으면,
             if (rs.next()) {
-                log.info("업데이트 성공");
+                //log.info("업데이트 성공");
             } else {
                 throw new SQLException("id 조회 실패");
             }

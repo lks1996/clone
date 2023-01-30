@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<script
+        src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous">
+
+</script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <title>showBoard</title>
+</head>
+<body>
+<div class="container">
+    <h1><a href="/"> Toy Web Blog</a></h1>
+    <section class="section-board-list">
+        <div class="form-group">
+            <div class="div_public_header">
+                <form action="/board/search" method="GET" class="form-boardSearch" role="search"
+                      style="display:inline-block;">
+                    <input type="text" name="keyword" id="search" placeholder="검색">
+                    <button type="submit">검색</button>
+                </form>
+                <div class="div_public_button">
+                    <a href="/board/new">글쓰기</a>
+                </div>
+
+                <table class="board-table">
+                    <thead>
+                    <tr>
+                        <th class="th-num">번호</th>
+                        <th class="th-title">제목</th>
+                        <th class="th-writer">작성자</th>
+                        <th class="th-date">작성 시간</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="board : ${boards}">
+                        <ul>
+                            <td th:text="${board.board_id}"></td>
+                            <th>
+                                <a th:href="@{/board/view(page = ${pagination.page}, bno = ${board.board_id})}">[[${board.title}]]</a>
+                            </th>
+                            <td th:text="${board.writer}"></td>
+                            <td th:text="${board.register_date}"></td>
+                        </ul>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <div class="div_showBoard_pagingBlock">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board(page=1)}" aria-label="Previous">
+                    <span aria-hidden="true">처음</span>
+                </a>
+            </li>
+
+            <li class="page-item" th:if="${pagination.block == 1}">
+                <span aria-hidden="true">이전</span>
+            </li>
+            <li class="page-item" th:if="${pagination.block > 1}">
+                <a class="page-link" th:href="@{/board(page = ${pagination.prevBlock})}" aria-label="Previous">
+                    <span aria-hidden="true">이전</span>
+                </a>
+            </li>
+
+            <th:block  th:with="start = ${pagination.startPage}, end = ${pagination.endPage}">
+                <li class="page-item"
+                    th:with="start = ${pagination.startPage}, end = ${pagination.endPage}"
+                    th:each="pageButton : ${#numbers.sequence(start, end)}">
+                    <a class="page-link" th:href="@{/board(page = ${pageButton})}" th:text=${pageButton}></a>
+                </li>
+            </th:block>
+
+            <li class="page-item" th:if="${pagination.block == pagination.totalBlockCnt}">
+                <span aria-hidden="true">다음</span>
+            </li>
+            <li class="page-item" th:if="${pagination.block < pagination.totalBlockCnt}">
+                <a class="page-link" th:href="@{/board(page = ${pagination.nextBlock})}" aria-label="Next">
+                    <span aria-hidden="true">다음</span>
+                </a>
+            </li>
+
+            <li class="page-item">
+                <a class="page-link" th:href="@{/board(page = ${pagination.totalPageCnt})}" aria-label="Previous">
+                    <span aria-hidden="true">끝</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div> <!-- /container -->
+<script>
+
+</script>
+</body>
+</html>

@@ -34,7 +34,7 @@ public class OpenApiGetWeatherData implements GetWeatherData {
 
         String hourStr = hour + "00"; // 정시 기준
 
-        log.info("API 요청 발송 >>>  연월일: {}, 시각: {}", yyyyMMdd, hourStr);
+        //log.info("API 요청 발송 >>>  연월일: {}, 시각: {}", yyyyMMdd, hourStr);
 
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst"); /*URL*/
 
@@ -109,15 +109,26 @@ public class OpenApiGetWeatherData implements GetWeatherData {
             jsonObj_items = (JSONObject) jsonArr_item.get(i);
             String category = (String) jsonObj_items.get("category");
 
+//            switch (category) {
+//                case "SKY" -> itemList_sky.add(jsonObj_items);
+//                case "T1H" -> itemList_temp.add(jsonObj_items);
+//                case "PTY" -> itemList_pty.add(jsonObj_items);
+//                case "RN1" -> itemList_rn1.add(jsonObj_items);
+//                case "LGT" -> itemList_lgt.add(jsonObj_items);
+//                case "REH" -> itemList_reh.add(jsonObj_items);
+//                case "VEC" -> itemList_vec.add(jsonObj_items);
+//                case "WSD" -> itemList_wsd.add(jsonObj_items);
+//            }
+
             switch (category) {
-                case "SKY" -> itemList_sky.add(jsonObj_items);
-                case "T1H" -> itemList_temp.add(jsonObj_items);
-                case "PTY" -> itemList_pty.add(jsonObj_items);
-                case "RN1" -> itemList_rn1.add(jsonObj_items);
-                case "LGT" -> itemList_lgt.add(jsonObj_items);
-                case "REH" -> itemList_reh.add(jsonObj_items);
-                case "VEC" -> itemList_vec.add(jsonObj_items);
-                case "WSD" -> itemList_wsd.add(jsonObj_items);
+                case "SKY": itemList_sky.add(jsonObj_items);
+                case "T1H": itemList_temp.add(jsonObj_items);
+                case "PTY": itemList_pty.add(jsonObj_items);
+                case "RN1": itemList_rn1.add(jsonObj_items);
+                case "LGT" : itemList_lgt.add(jsonObj_items);
+                case "REH" : itemList_reh.add(jsonObj_items);
+                case "VEC" : itemList_vec.add(jsonObj_items);
+                case "WSD" : itemList_wsd.add(jsonObj_items);
             }
         }
 

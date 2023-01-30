@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+  <title>createMemberForm</title>
+</head>
+<body>
+<div class="container">
+  <h1><a href="/"> Toy Web Blog</a></h1>
+  <form action="/members/new" method="post">
+    <div class="form-group">
+      아이디 : <input type="text" id="user_id" name="user_id" placeholder="ID"><br>
+      비밀번호 : <input type="password" id="user_pw" name="user_pw" placeholder="PW"><br>
+      비밀번호 확인 : <input type="password" id="user_pw2" name="user_pw2" placeholder="check PW"><br>
+      이름 : <input type="text" id="name" name="name" placeholder="이름을
+입력하세요">
+    </div>
+    <button type="submit">등록</button>
+  </form>
+</div> <!-- /container -->
+</body>
+</html>

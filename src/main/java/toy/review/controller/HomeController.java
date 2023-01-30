@@ -30,7 +30,7 @@ public class HomeController {
 
         String nowWeather = weatherProcessFunc.nowWeatherData();
 
-        log.info(nowWeather);
+        //log.info(nowWeather);
 
         model.addAttribute("nowWeather", nowWeather);
 
@@ -41,7 +41,7 @@ public class HomeController {
         // 쿠키에 대응되는 멤버 있는지 확인
         Optional<Member> loginMember = memberService.findOne(memberId);
 
-        log.info("loginMember" + loginMember.get().getUser_id());
+        //log.info("loginMember" + loginMember.get().getUser_id());
 
         if (loginMember == null) {
             return "home";

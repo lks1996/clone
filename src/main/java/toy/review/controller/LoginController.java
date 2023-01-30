@@ -34,7 +34,7 @@ public class LoginController {
                                HttpServletResponse response) {
 
         if (bindingResult.hasErrors()) {
-            log.info("bindingResult.hasErrors()");
+            //log.info("bindingResult.hasErrors()");
             return "login/";
         }
 
@@ -45,7 +45,7 @@ public class LoginController {
 
         if (loginMember == null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            log.info("loginMember == null");
+            //log.info("loginMember == null");
 
             return "login/loginForm";
         }

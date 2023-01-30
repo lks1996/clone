@@ -56,11 +56,11 @@ public class MemberController {
         Member checkPassword = LoginService.loginOrCheckPwd(memberId, user_pw);
 
         if (checkPassword == null) {
-            log.info("비밀번호 확인 실패");
+            //log.info("비밀번호 확인 실패");
             return "redirect:/members/update";
         }
 
-        log.info("비밀번호 확인 성공");
+        //log.info("비밀번호 확인 성공");
 
         Optional<Member> member = memberService.findOne(memberId);
         String memberName = member.get().getName();
@@ -88,11 +88,11 @@ public class MemberController {
 //        log.info("MemberRestController 진입");
         if(memberService.checkNickname(dto.getUser_id(), dto.getName())){
             //log.info("중복 닉네임");
-            log.info("해당 닉네임을 사용하는 사용자 id가 존재함.");
+            //log.info("해당 닉네임을 사용하는 사용자 id가 존재함.");
             return false;
             }
         else{
-            log.info("사용 가능한 닉네임");
+            //log.info("사용 가능한 닉네임");
 
             //회원 정보 수정
             memberService.updateUserInfo(dto);

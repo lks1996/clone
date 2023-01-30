@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<script
+        src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <title>view</title>
+</head>
+<body>
+<div class="container">
+    <h1><a href="/"> Toy Web Blog</a></h1>
+    <div class="div_public_button">
+        <a href="/board/new">글쓰기</a>
+        <th> | </th>
+        <a th:href="@{/board(page=${backToList})}">목록</a>
+    </div>
+
+
+    <div class="div_view_contentsPart">
+        <tr th:each="oneBoard : ${oneBoard}">
+            <input type="hidden" th:id="board_id" th:value="${oneBoard.board_id}"/>
+            <h3>
+                <td th:text="${oneBoard.title}"></td>
+            </h3>
+            <div class="div_view_writerAnddate">
+                <span class="span_view_writer">
+                    <th class="th_view_writer">작성자: </th>
+                    <td th:text="${oneBoard.writer}"></td>
+                </span>
+                        <span class="span_view_register_date">
+                    <th class="th_view_register_date">작성 시간: </th>
+                    <td th:text="${oneBoard.register_date}"></td>
+                </span>
+            </div>
+            <div class="div_view_contents">
+                <td th:text="${oneBoard.contents}"></td>
+            </div>
+        </tr>
+    </div>
+
+
+    <div class="div_view_comments">
+        <td th:text="${commentSize}"></td>
+        <td>개의 Comments</td>
+        <div class="div_view_registerComments">
+            <textarea id="newCommentContents" placeholder="내용을 입력하세요." onkeyup="countKeyup()" required></textarea>
+            <button id="registerComments" class="btn_register_comments" value="등록"
+                    th:onclick="registerComments()">등록
+            </button>
+        </div>
+        <span class="txsub">남은글자수 : <input type="text" readonly  value="200" name="counter" id="counter"></span>
+
+        <div class="div_display_comments">
+            <tbody>
+                <tr th:each="comment : ${comments}">
+                    <ul>
+                        <input type="hidden" th:id="comment_id" th:value="${comment.comment_id}"/>
+                        <td th:text="${comment.writer_id}"></td>
+                        <td class="td_1" style="color:blue;">님의 Comments</td>
+                        <br>
+                        <td class="td_1" th:text="${comment.comment_register_date}"></td>
+                        <br>
+                        <br>
+                        <td th:text="${comment.comment_contents}"></td>
+                    </ul>
+                </tr>
+            </tbody>
+
+        </div>
+    </div>
+
+
+    <section class="section-board-list">
+        <div class="dif_view_boardsList">
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th class="th-num">번호</th>
+                    <th class="th-title">제목</th>
+                    <th class="th-writer">작성자</th>
+                    <th class="th-date">작성 시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="board : ${boards}">
+                    <ul>
+                        <td th:text="${board.board_id}"></td>
+                        <td>
+                            <a th:href="@{/board/view/{bno}(bno = ${board.board_id})}">[[${board.title}]]</a>
+                        </td>
+                        <td th:text="${board.writer}"></td>
+                        <td th:text="${board.register_date}"></td>
+                    </ul>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div> <!-- /container -->
+<script>
+<!-- 댓글 입력창 글자 수 제한 함수 -->
+function countKeyup(){
+        $('#newCommentContents').keyup(function (e){
+        var content = $(this).val();
+        $('#counter').val(200-content.length);
+
+        if(content.length > 200) {
+            $(this).val($(this).val().substring(0, 200));
+        }
+      });
+}
+
+
+<!-- 댓글 섹션만 리로드하는 함수 -->
+    function registerComments(){
+        const data = {
+            comment_contents: $('#newCommentContents').val(),
+            board_id: $('#board_id').val()
+        };
+
+<!-- 공백 및 빈 문자열 체크 -->
+        if(!data.comment_contents || data.comment_contents.trim() === ""){
+            alert("공백 또는 입력하지 않은 부분이 있습니다.");
+            return false;
+        }
+
+<!-- 유효성 검사-->
+
+        const confirmCheck = confirm("등록하시겠습니까?");
+
+        if(confirmCheck == true){
+            $.ajax({
+                type: 'POST',
+                url: '/board/regcomments',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data)
+            }).done(function(result){
+                if(result){
+                    alert("댓글 등록이 완료되었습니다.");
+                    $('#counter').val('200');
+                    $(".div_view_comments").load(location.href + " .div_view_comments");
+                } else{
+                    alert("오류 발생. 다시 입력해주세요.");
+                    $('#newCommentContents').focus();
+                }
+            }).fail(function(error){
+                alert(JSON.stringify(error));
+            });
+        }
+    }
+
+
+</script>
+</body>
+</html>
