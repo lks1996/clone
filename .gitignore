@@ -3,6 +3,7 @@ HELP.md
 application.properties
 checkPwdForm2.html
 memberUpdate.js
+sql.text
 
 config/
 test/

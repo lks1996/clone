@@ -28,8 +28,8 @@ public class HomeController {
     public String home(@CookieValue(name = "memberId", required = false) String memberId,
                        Model model) throws IOException {
 
-        String nowWeather = weatherProcessFunc.nowWeatherData();
-
+        //String nowWeather = weatherProcessFunc.nowWeatherData();
+        String nowWeather = "goood";
         //log.info(nowWeather);
 
         model.addAttribute("nowWeather", nowWeather);

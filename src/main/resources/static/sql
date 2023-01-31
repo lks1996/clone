@@ -1,3 +1,10 @@
+MYSQL 접속 정보
+
+host(앤드포인트) :springboor-db.cgoz6wcpkned.ap-northeast-2.rds.amazonaws.com
+db이름 : springbootdbmysql
+username : admin
+pwd : 12345678
+
 
 drop table if exists member CASCADE;
 create table member
