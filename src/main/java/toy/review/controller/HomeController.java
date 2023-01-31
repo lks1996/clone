@@ -29,7 +29,7 @@ public class HomeController {
                        Model model) throws IOException {
 
         //String nowWeather = weatherProcessFunc.nowWeatherData();
-        String nowWeather = "goood";
+        String nowWeather = "BAD";
         //log.info(nowWeather);
 
         model.addAttribute("nowWeather", nowWeather);
