@@ -33,8 +33,8 @@ public class Schaduler {
             } else {
                 Runtime.getRuntime().exec("/home/ubuntu/app/git/./deploy.sh");
                 System.out.println("git 레파지토리 변경 사항이 있으므로, 서버 재시작...");
-
             }
+            System.out.println("!!!!!!!!!");
 
         } catch (Exception e) {
             e.printStackTrace();
