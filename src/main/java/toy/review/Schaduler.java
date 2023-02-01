@@ -13,7 +13,7 @@ public class Schaduler {
 
         try {
             // Run script
-            Process process = Runtime.getRuntime().exec("/home/ubuntu/app/git/deploy.sh");
+            Process process = Runtime.getRuntime().exec("cd /home/ubuntu/app/git/ | ./deploy.sh");
 
 //            // Read output
 //            StringBuilder output = new StringBuilder();
