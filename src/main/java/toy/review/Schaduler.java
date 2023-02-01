@@ -30,8 +30,11 @@ public class Schaduler {
             System.out.println(output.toString());
             if (output.toString().contains("Already up to date.")) {
                 System.out.println("git 레파지토리 변경 사항 무");
-            } else Runtime.getRuntime().exec("/home/ubuntu/app/git/./deploy.sh");
-            System.out.println("git 레파지토리 변경 사항이 있으므로, 서버 재시작...");
+            } else {
+                Runtime.getRuntime().exec("/home/ubuntu/app/git/./deploy.sh");
+                System.out.println("git 레파지토리 변경 사항이 있으므로, 서버 재시작...");
+
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
