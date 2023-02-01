@@ -28,6 +28,9 @@ public class Schaduler {
             }
 
             System.out.println(output.toString());
+            if (output.toString().contains("Already up to date.")) {
+                System.out.println("git 레파지토리 변경 사항 무");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
